@@ -83,6 +83,48 @@ module.key_tables = {
     { key = "Escape", action = "PopKeyTable" },
     { key = "Enter", action = "PopKeyTable" },
   },
+
+  -- コピーモード
+  copy_mode = {
+    -- カーソル移動
+    { key = "h", mods = "NONE", action = act.CopyMode("MoveLeft") },
+    { key = "j", mods = "NONE", action = act.CopyMode("MoveDown") },
+    { key = "k", mods = "NONE", action = act.CopyMode("MoveUp") },
+    { key = "l", mods = "NONE", action = act.CopyMode("MoveRight") },
+
+    -- 選択
+    { key = "v", mods = "NONE", action = act.CopyMode({ SetSelectionMode = "Cell" }) },
+    { key = "V", mods = "SHIFT", action = act.CopyMode({ SetSelectionMode = "Line" }) },
+    { key = "v", mods = "CTRL", action = act.CopyMode({ SetSelectionMode = "Block" }) },
+
+    -- コピー
+    { key = "y", mods = "NONE", action = act.Multiple({ { CopyTo = "ClipboardAndPrimarySelection" }, { CopyMode = "Close" } }) },
+
+    -- 検索
+    { key = "/", mods = "NONE", action = act.Search("CurrentSelectionOrEmptyString") },
+    { key = "n", mods = "NONE", action = act.CopyMode("NextMatch") },
+    { key = "N", mods = "SHIFT", action = act.CopyMode("PriorMatch") },
+
+    -- ページ移動
+    { key = "g", mods = "NONE", action = act.CopyMode("MoveToScrollbackTop") },
+    { key = "G", mods = "SHIFT", action = act.CopyMode("MoveToScrollbackBottom") },
+    { key = "u", mods = "CTRL", action = act.CopyMode("PageUp") },
+    { key = "d", mods = "CTRL", action = act.CopyMode("PageDown") },
+
+    -- 終了
+    { key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
+    { key = "q", mods = "NONE", action = act.CopyMode("Close") },
+  },
+
+  -- 検索モード
+  search_mode = {
+    { key = "Enter", mods = "NONE", action = act.ActivateCopyMode },
+    { key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
+    { key = "n", mods = "CTRL", action = act.CopyMode("NextMatch") },
+    { key = "p", mods = "CTRL", action = act.CopyMode("PriorMatch") },
+    { key = "r", mods = "CTRL", action = act.CopyMode("CycleMatchType") },
+    { key = "u", mods = "CTRL", action = act.CopyMode("ClearPattern") },
+  },
 }
 
 return module
