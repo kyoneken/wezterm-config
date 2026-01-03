@@ -1,6 +1,7 @@
 -- WezTerm設定ファイル
 -- Phase 1: 基本設定（フォント、カラー、ウィンドウ）
 -- Phase 2: タブバーのカスタマイズ
+-- Phase 3: キーバインド設定
 
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -101,5 +102,19 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     { Text = SOLID_RIGHT_ARROW },
   }
 end)
+
+----------------------------------------------------
+-- キーバインド設定
+----------------------------------------------------
+-- デフォルトのキーバインドを無効化
+config.disable_default_key_bindings = true
+
+-- Leaderキー: Ctrl+q（2秒タイムアウト）
+config.leader = { key = "q", mods = "CTRL", timeout_milliseconds = 2000 }
+
+-- 外部モジュールからキーバインドを読み込み
+local keybinds = require("keybinds")
+config.keys = keybinds.keys
+config.key_tables = keybinds.key_tables
 
 return config
