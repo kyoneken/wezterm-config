@@ -1,6 +1,7 @@
 -- WezTerm設定ファイル
 -- Phase 1: 基本設定（フォント、カラー、ウィンドウ）
 -- Phase 2: タブバーのカスタマイズ
+-- Phase 3: キーバインド設定
 
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -50,6 +51,15 @@ config.colors = {
   tab_bar = {
     background = "#1a1b26",
   },
+  -- コピーモードの選択範囲
+  copy_mode_active_highlight_bg = { Color = "#7aa2f7" },
+  copy_mode_active_highlight_fg = { Color = "#1a1b26" },
+  copy_mode_inactive_highlight_bg = { Color = "#3b4261" },
+  copy_mode_inactive_highlight_fg = { Color = "#c0caf5" },
+  
+  -- 通常の選択範囲の色
+  selection_bg = "#3b4261",
+  selection_fg = "#c0caf5",
 }
 
 -- タブの追加ボタンを非表示
@@ -101,5 +111,19 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     { Text = SOLID_RIGHT_ARROW },
   }
 end)
+
+----------------------------------------------------
+-- キーバインド設定
+----------------------------------------------------
+-- デフォルトのキーバインドを無効化
+config.disable_default_key_bindings = true
+
+-- Leaderキー: Ctrl+q（2秒タイムアウト）
+config.leader = { key = "q", mods = "CTRL", timeout_milliseconds = 2000 }
+
+-- 外部モジュールからキーバインドを読み込み
+local keybinds = require("keybinds")
+config.keys = keybinds.keys
+config.key_tables = keybinds.key_tables
 
 return config
