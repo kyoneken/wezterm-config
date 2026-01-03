@@ -86,11 +86,21 @@ module.key_tables = {
 
   -- コピーモード
   copy_mode = {
-    -- カーソル移動
+    -- カーソル移動（基本）
     { key = "h", mods = "NONE", action = act.CopyMode("MoveLeft") },
     { key = "j", mods = "NONE", action = act.CopyMode("MoveDown") },
     { key = "k", mods = "NONE", action = act.CopyMode("MoveUp") },
     { key = "l", mods = "NONE", action = act.CopyMode("MoveRight") },
+
+    -- Vim風の単語移動
+    { key = "w", mods = "NONE", action = act.CopyMode("MoveForwardWord") },
+    { key = "b", mods = "NONE", action = act.CopyMode("MoveBackwardWord") },
+    { key = "e", mods = "NONE", action = act.CopyMode("MoveForwardWordEnd") },
+
+    -- 行内移動
+    { key = "0", mods = "NONE", action = act.CopyMode("MoveToStartOfLine") },
+    { key = "^", mods = "SHIFT", action = act.CopyMode("MoveToStartOfLineContent") },
+    { key = "$", mods = "SHIFT", action = act.CopyMode("MoveToEndOfLineContent") },
 
     -- 選択
     { key = "v", mods = "NONE", action = act.CopyMode({ SetSelectionMode = "Cell" }) },
@@ -110,6 +120,8 @@ module.key_tables = {
     { key = "G", mods = "SHIFT", action = act.CopyMode("MoveToScrollbackBottom") },
     { key = "u", mods = "CTRL", action = act.CopyMode("PageUp") },
     { key = "d", mods = "CTRL", action = act.CopyMode("PageDown") },
+    { key = "b", mods = "CTRL", action = act.CopyMode("PageUp") },
+    { key = "f", mods = "CTRL", action = act.CopyMode("PageDown") },
 
     -- 終了
     { key = "Escape", mods = "NONE", action = act.CopyMode("Close") },
@@ -123,7 +135,8 @@ module.key_tables = {
     { key = "n", mods = "CTRL", action = act.CopyMode("NextMatch") },
     { key = "p", mods = "CTRL", action = act.CopyMode("PriorMatch") },
     { key = "r", mods = "CTRL", action = act.CopyMode("CycleMatchType") },
-    { key = "u", mods = "CTRL", action = act.CopyMode("ClearPattern") },
+    { key = "w", mods = "CTRL", action = act.CopyMode("ClearPattern") },
+    { key = "Backspace", mods = "CTRL", action = act.CopyMode("ClearPattern") },
   },
 }
 

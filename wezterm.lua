@@ -51,6 +51,15 @@ config.colors = {
   tab_bar = {
     background = "#1a1b26",
   },
+  -- コピーモードの選択範囲
+  copy_mode_active_highlight_bg = { Color = "#7aa2f7" },
+  copy_mode_active_highlight_fg = { Color = "#1a1b26" },
+  copy_mode_inactive_highlight_bg = { Color = "#3b4261" },
+  copy_mode_inactive_highlight_fg = { Color = "#c0caf5" },
+  
+  -- 通常の選択範囲の色
+  selection_bg = "#3b4261",
+  selection_fg = "#c0caf5",
 }
 
 -- タブの追加ボタンを非表示
