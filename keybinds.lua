@@ -66,6 +66,32 @@ module.keys = {
 
   -- 検索
   { key = "f", mods = "CMD", action = act.Search("CurrentSelectionOrEmptyString") },
+
+  -- フォントサイズ調整
+  { key = "-", mods = "CTRL", action = act.DecreaseFontSize },
+  { key = "+", mods = "CTRL|SHIFT", action = act.IncreaseFontSize },
+  { key = "0", mods = "CTRL", action = act.ResetFontSize },
+
+  -- 背景透明度の調整
+  { key = "-", mods = "CMD|CTRL", action = wezterm.action_callback(function(window, pane)
+    local overrides = window:get_config_overrides() or {}
+    local opacity = overrides.window_background_opacity or 0.90
+    opacity = math.max(0.1, opacity - 0.05)
+    overrides.window_background_opacity = opacity
+    window:set_config_overrides(overrides)
+  end) },
+  { key = "+", mods = "CMD|CTRL|SHIFT", action = wezterm.action_callback(function(window, pane)
+    local overrides = window:get_config_overrides() or {}
+    local opacity = overrides.window_background_opacity or 0.90
+    opacity = math.min(1.0, opacity + 0.05)
+    overrides.window_background_opacity = opacity
+    window:set_config_overrides(overrides)
+  end) },
+  { key = "0", mods = "CMD|CTRL", action = wezterm.action_callback(function(window, pane)
+    local overrides = window:get_config_overrides() or {}
+    overrides.window_background_opacity = 0.90
+    window:set_config_overrides(overrides)
+  end) },
 }
 
 ----------------------------------------------------

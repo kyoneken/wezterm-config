@@ -26,7 +26,7 @@ config.initial_cols = 140
 config.initial_rows = 40
 
 -- ウィンドウの背景透過
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.90
 config.macos_window_background_blur = 20
 
 -- ウィンドウの装飾
