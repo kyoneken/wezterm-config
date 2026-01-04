@@ -30,7 +30,7 @@ config.window_background_opacity = 0.90
 config.macos_window_background_blur = 20
 
 -- ウィンドウの装飾
-config.window_decorations = "RESIZE"
+config.window_decorations = "TITLE | RESIZE"
 
 -- ウィンドウのパディング
 config.window_padding = {
