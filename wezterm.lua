@@ -2,6 +2,7 @@
 -- Phase 1: 基本設定（フォント、カラー、ウィンドウ）
 -- Phase 2: タブバーのカスタマイズ
 -- Phase 3: キーバインド設定
+-- Phase 4-1: スクロールバック＆カーソル設定
 
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -34,6 +35,42 @@ config.window_padding = {
   top = 10,
   bottom = 10,
 }
+
+----------------------------------------------------
+-- スクロールバック設定
+----------------------------------------------------
+-- スクロールバック行数（デフォルト: 3500）
+config.scrollback_lines = 10000
+
+-- スクロール時の動作
+config.enable_scroll_bar = false
+
+----------------------------------------------------
+-- カーソル設定
+----------------------------------------------------
+-- カーソルの形状（Block, Underline, Bar）
+config.default_cursor_style = "BlinkingBlock"
+
+-- カーソルの点滅速度（ミリ秒）
+config.cursor_blink_rate = 500
+config.cursor_blink_ease_in = "Constant"
+config.cursor_blink_ease_out = "Constant"
+
+-- カーソルの色（デフォルトはテーマに従う）
+-- config.colors.cursor_bg = "#7aa2f7"
+-- config.colors.cursor_fg = "#1a1b26"
+
+----------------------------------------------------
+-- パフォーマンス設定
+----------------------------------------------------
+-- フレームレート
+config.max_fps = 60
+
+-- アニメーション
+config.animation_fps = 60
+
+-- GPUアクセラレーション（デフォルトで有効）
+config.front_end = "WebGpu"
 
 ----------------------------------------------------
 -- タブバー設定
