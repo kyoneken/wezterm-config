@@ -2,6 +2,7 @@
 -- Phase 1: 基本設定（フォント、カラー、ウィンドウ）
 -- Phase 2: タブバーのカスタマイズ
 -- Phase 3: キーバインド設定
+-- Phase 4-1: スクロールバック＆カーソル設定
 
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -10,7 +11,7 @@ local config = wezterm.config_builder()
 -- フォント設定
 ----------------------------------------------------
 config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
-config.font_size = 14.0
+config.font_size = 16.0
 
 ----------------------------------------------------
 -- カラースキーム
@@ -20,12 +21,16 @@ config.color_scheme = "Tokyo Night"
 ----------------------------------------------------
 -- ウィンドウ設定
 ----------------------------------------------------
+-- 初期ウィンドウサイズ
+config.initial_cols = 140
+config.initial_rows = 40
+
 -- ウィンドウの背景透過
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.90
 config.macos_window_background_blur = 20
 
 -- ウィンドウの装飾
-config.window_decorations = "RESIZE"
+config.window_decorations = "TITLE | RESIZE"
 
 -- ウィンドウのパディング
 config.window_padding = {
@@ -34,6 +39,42 @@ config.window_padding = {
   top = 10,
   bottom = 10,
 }
+
+----------------------------------------------------
+-- スクロールバック設定
+----------------------------------------------------
+-- スクロールバック行数（デフォルト: 3500）
+config.scrollback_lines = 10000
+
+-- スクロール時の動作
+config.enable_scroll_bar = false
+
+----------------------------------------------------
+-- カーソル設定
+----------------------------------------------------
+-- カーソルの形状（Block, Underline, Bar）
+config.default_cursor_style = "BlinkingBlock"
+
+-- カーソルの点滅速度（ミリ秒）
+config.cursor_blink_rate = 500
+config.cursor_blink_ease_in = "Constant"
+config.cursor_blink_ease_out = "Constant"
+
+-- カーソルの色（デフォルトはテーマに従う）
+-- config.colors.cursor_bg = "#7aa2f7"
+-- config.colors.cursor_fg = "#1a1b26"
+
+----------------------------------------------------
+-- パフォーマンス設定
+----------------------------------------------------
+-- フレームレート
+config.max_fps = 60
+
+-- アニメーション
+config.animation_fps = 60
+
+-- GPUアクセラレーション（デフォルトで有効）
+config.front_end = "WebGpu"
 
 ----------------------------------------------------
 -- タブバー設定
