@@ -11,7 +11,7 @@ local config = wezterm.config_builder()
 -- フォント設定
 ----------------------------------------------------
 config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
-config.font_size = 14.0
+config.font_size = 16.0
 
 ----------------------------------------------------
 -- カラースキーム
@@ -21,6 +21,10 @@ config.color_scheme = "Tokyo Night"
 ----------------------------------------------------
 -- ウィンドウ設定
 ----------------------------------------------------
+-- 初期ウィンドウサイズ
+config.initial_cols = 140
+config.initial_rows = 40
+
 -- ウィンドウの背景透過
 config.window_background_opacity = 0.95
 config.macos_window_background_blur = 20
