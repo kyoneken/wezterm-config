@@ -1,1 +1,262 @@
-# wezterm-config
+# WezTerm Configuration
+
+個人用のWezTermターミナルエミュレータ設定プロジェクトです。Tokyo Nightテーマをベースに、Vim風のキーバインドと快適な操作性を実現しています。
+
+![WezTerm Version](https://img.shields.io/badge/WezTerm-latest-blue)
+![Platform](https://img.shields.io/badge/platform-macOS-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-green)
+
+## ✨ 特徴
+
+### 🎨 ビジュアル
+- **Tokyo Nightテーマ**: 目に優しいダークカラースキーム
+- **カスタムタブバー**: NerdFontsアイコンでモダンなデザイン
+- **背景透過**: 10%透過 + macOSぼかし効果
+- **動的透明度調整**: キーボードショートカットで即座に変更可能
+
+### ⌨️ キーバインド
+- **Leaderキー**: `Ctrl+q` (tmuxスタイル)
+- **Vim風操作**: h/j/k/l、w/b/e、0/^/$ など
+- **コピーモード**: 検索、選択、コピーの完全サポート
+- **モジュール化**: 別ファイルで管理して保守性向上
+
+### ⚡ パフォーマンス
+- **スクロールバック**: 10,000行
+- **60 FPS**: 滑らかな動作
+- **WebGpu**: 最新のGPUアクセラレーション
+
+## 📦 インストール
+
+### 1. WezTermのインストール
+
+**macOS (Homebrew):**
+```bash
+brew install --cask wezterm
+```
+
+**または公式サイトからダウンロード:**
+https://wezfurlong.org/wezterm/installation.html
+
+### 2. 設定ファイルのセットアップ
+
+```bash
+# リポジトリをクローン
+git clone https://github.com/kyoneken/wezterm-config.git
+cd wezterm-config
+
+# シンボリックリンクを作成
+mkdir -p ~/.config/wezterm
+ln -sf $(pwd)/wezterm.lua ~/.config/wezterm/wezterm.lua
+ln -sf $(pwd)/keybinds.lua ~/.config/wezterm/keybinds.lua
+```
+
+### 3. フォントのインストール（推奨）
+
+```bash
+# JetBrains Monoフォント
+brew tap homebrew/cask-fonts
+brew install --cask font-jetbrains-mono
+
+# Nerd Fonts（タブアイコン用）
+brew install --cask font-jetbrains-mono-nerd-font
+```
+
+### 4. 動作確認
+
+```bash
+# 設定の構文チェック
+/Applications/WezTerm.app/Contents/MacOS/wezterm ls-fonts | head -5
+
+# WezTermを起動
+open -a WezTerm
+```
+
+## 🚀 使い方
+
+### 基本操作
+
+#### タブ操作
+- `Ctrl+q` → `c` : 新規タブ作成
+- `Ctrl+q` → `n` : 次のタブへ
+- `Ctrl+q` → `p` : 前のタブへ
+- `Ctrl+q` → `1-9` : タブ番号で直接移動
+- `Ctrl+q` → `x` : タブを閉じる
+
+#### ペイン操作
+- `Ctrl+q` → `Shift+¥` : 水平分割
+- `Ctrl+q` → `-` : 垂直分割
+- `Ctrl+q` → `h/j/k/l` : ペイン移動（Vim風）
+- `Ctrl+q` → `w` : ペインを閉じる
+- `Ctrl+q` → `r` : リサイズモード
+
+#### リサイズモード
+- `h/j/k/l` : ペインサイズ調整
+- `Esc` または `Enter` : リサイズモード終了
+
+### コピーモード
+
+#### 基本操作
+- `Ctrl+q` → `[` : コピーモード開始
+- `h/j/k/l` : カーソル移動
+- `w/b/e` : 単語移動
+- `0/^/$` : 行内移動
+- `g/G` : 先頭/末尾へ移動
+- `Ctrl+u/d` : ページ移動
+
+#### 検索
+- `/` : 検索開始
+- `Enter` : 検索実行してノーマルモードに戻る
+- `n/N` : 次/前の検索結果へ
+- `Ctrl+w` : 検索語句をクリア
+
+#### 選択とコピー
+- `v` : 文字選択開始
+- `V` : 行選択
+- `Ctrl+v` : 矩形選択
+- `y` : コピーしてモード終了
+- `Esc` または `q` : コピーモード終了
+
+### 透明度・フォントサイズ調整
+
+#### 透明度
+- `Cmd+Ctrl + -` : 透明度を下げる（透ける）
+- `Cmd+Ctrl + Shift + +` : 透明度を上げる（不透明に）
+- `Cmd+Ctrl + 0` : デフォルト（0.90）にリセット
+
+#### フォントサイズ
+- `Ctrl + -` : フォントサイズを小さく
+- `Ctrl + Shift + +` : フォントサイズを大きく
+- `Ctrl + 0` : フォントサイズをリセット
+
+### その他
+- `Cmd + c/v` : コピー＆ペースト（macOS標準）
+- `Cmd + f` : 検索
+- `Ctrl+q` → `Shift+r` : 設定リロード
+
+## 🛠️ 開発環境
+
+### 構成ファイル
+
+```
+wezterm-config/
+├── wezterm.lua              # メイン設定ファイル
+├── keybinds.lua            # キーバインド設定（モジュール）
+├── .github/
+│   └── copilot-instructions.md  # 開発ガイドライン
+└── README.md               # このファイル
+```
+
+### 技術スタック
+
+- **設定言語**: Lua
+- **ターミナル**: WezTerm (Rust製)
+- **フォント**: JetBrains Mono 16pt
+- **テーマ**: Tokyo Night
+- **バージョン管理**: Git + GitHub
+- **プロジェクト管理**: GitHub Issues + Jira (SCRUM)
+
+### 設定のカスタマイズ
+
+#### 基本設定の変更
+`wezterm.lua` を編集：
+
+```lua
+-- フォントサイズ変更
+config.font_size = 18.0
+
+-- 透明度変更
+config.window_background_opacity = 0.85
+
+-- ウィンドウサイズ変更
+config.initial_cols = 160
+config.initial_rows = 50
+```
+
+#### キーバインドの追加
+`keybinds.lua` の `module.keys` に追加：
+
+```lua
+-- カスタムキーバインド例
+{ key = "t", mods = "LEADER", action = act.SpawnTab("CurrentPaneDomain") },
+```
+
+#### 設定の反映
+- 変更後: `Ctrl+q` → `Shift+r` で即座に反映
+- または: `Cmd+R`
+
+### 開発ワークフロー
+
+1. **ブランチ作成**
+   ```bash
+   git checkout -b feature/new-feature
+   ```
+
+2. **設定変更と動作確認**
+   - 設定ファイルを編集
+   - WezTermで `Ctrl+q` → `Shift+r` でリロード
+   - 動作を確認
+
+3. **コミット**
+   ```bash
+   git add .
+   git commit -m "feat: 新機能の説明"
+   git push -u origin feature/new-feature
+   ```
+
+4. **Pull Request作成**
+   ```bash
+   gh pr create --title "feat: 新機能" --body "説明" --base main
+   ```
+
+5. **GitHub Issue + Jira連携**
+   ```bash
+   # GitHub Issue作成
+   gh issue create --title "機能名" --body "説明" --label "enhancement"
+   
+   # Jiraストーリー作成
+   acli jira workitem create \
+     --project "SCRUM" \
+     --type "ストーリー" \
+     --summary "機能名" \
+     --description "説明\n\nGitHub Issue: URL"
+   ```
+
+## 📋 今後の予定
+
+以下の機能追加を予定しています（詳細は[Issues](https://github.com/kyoneken/wezterm-config/issues)参照）：
+
+- [ ] ステータスバーの強化（ディレクトリ、Git情報）
+- [ ] マウス操作の改善
+- [ ] 起動時のデフォルト設定
+- [ ] 背景カスタマイズ
+- [ ] 通知・ベル設定
+
+## 🤝 コントリビューション
+
+個人プロジェクトですが、提案やフィードバックは歓迎します！
+
+1. Fork this repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📚 参考資料
+
+- [WezTerm公式ドキュメント](https://wezfurlong.org/wezterm/)
+- [Tokyo Nightテーマ](https://github.com/folke/tokyonight.nvim)
+- [JetBrains Monoフォント](https://www.jetbrains.com/lp/mono/)
+- [Nerd Fonts](https://www.nerdfonts.com/)
+
+## 📝 ライセンス
+
+MIT License - 自由に使用、改変、配布できます。
+
+## 👤 作者
+
+**kyoneken**
+- GitHub: [@kyoneken](https://github.com/kyoneken)
+
+---
+
+⭐ このプロジェクトが役に立ったら、スターをつけていただけると嬉しいです！
