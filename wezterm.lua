@@ -3,6 +3,7 @@
 -- Phase 2: タブバーのカスタマイズ
 -- Phase 3: キーバインド設定
 -- Phase 4-1: スクロールバック＆カーソル設定
+-- Phase 4-3: マウス操作の改善
 
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
@@ -39,15 +40,6 @@ config.window_padding = {
   top = 10,
   bottom = 10,
 }
-
-----------------------------------------------------
--- スクロールバック設定
-----------------------------------------------------
--- スクロールバック行数（デフォルト: 3500）
-config.scrollback_lines = 10000
-
--- スクロール時の動作
-config.enable_scroll_bar = false
 
 ----------------------------------------------------
 -- カーソル設定
@@ -152,6 +144,98 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
     { Text = SOLID_RIGHT_ARROW },
   }
 end)
+
+----------------------------------------------------
+-- マウス設定
+----------------------------------------------------
+-- マウスバインディング
+config.mouse_bindings = {
+  -- 右クリックでコンテキストメニュー
+  {
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = wezterm.action_callback(function(window, pane)
+      local has_selection = window:get_selection_text_for_pane(pane) ~= ""
+      if has_selection then
+        -- 選択範囲がある場合はコピー
+        window:perform_action(wezterm.action.CopyTo("ClipboardAndPrimarySelection"), pane)
+      else
+        -- 選択範囲がない場合はペースト
+        window:perform_action(wezterm.action.PasteFrom("Clipboard"), pane)
+      end
+    end),
+  },
+
+  -- Ctrl+クリックでハイパーリンクを開く
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "CTRL",
+    action = wezterm.action.OpenLinkAtMouseCursor,
+  },
+
+  -- ミドルクリックでペースト
+  {
+    event = { Down = { streak = 1, button = "Middle" } },
+    mods = "NONE",
+    action = wezterm.action.PasteFrom("PrimarySelection"),
+  },
+
+  -- Shift+スクロールでページ移動
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = "SHIFT",
+    action = wezterm.action.ScrollByPage(-0.5),
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = "SHIFT",
+    action = wezterm.action.ScrollByPage(0.5),
+  },
+}
+
+-- ハイパーリンク検出ルール
+config.hyperlink_rules = {
+  -- HTTP/HTTPS URL
+  {
+    regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b",
+    format = "$0",
+  },
+  
+  -- 暗黙的なHTTPS（www.example.com）
+  {
+    regex = [[\bwww\.[a-z0-9-]+\.[a-z]{2,15}\S*\b]],
+    format = "https://$0",
+  },
+
+  -- GitHub リポジトリ（user/repo形式）
+  {
+    regex = [[\b[a-z0-9][a-z0-9-]*\/[a-z0-9._-]+\b]],
+    format = "https://github.com/$0",
+  },
+
+  -- ファイルパス（絶対パス）
+  {
+    regex = [[\b\/[\w\-\.\/]+\b]],
+    format = "file://$0",
+  },
+
+  -- ローカルポート（localhost:3000など）
+  {
+    regex = [[\blocalhost:\d{1,5}\b]],
+    format = "http://$0",
+  },
+  {
+    regex = [[\b127\.0\.0\.1:\d{1,5}\b]],
+    format = "http://$0",
+  },
+}
+
+-- スクロール設定
+config.scrollback_lines = 10000
+config.enable_scroll_bar = false
+
+-- マウスでのテキスト選択を有効化（デフォルトで有効だが明示的に設定）
+config.selection_word_boundary = " \t\n{}[]()\"'`"
 
 ----------------------------------------------------
 -- キーバインド設定
