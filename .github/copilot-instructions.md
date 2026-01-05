@@ -41,6 +41,22 @@
 - 設定変更後は必ずテスト
 - 実験的機能には意味のあるブランチ名を使用
 
+### Jiraワークフロー
+- 新機能やタスクは必ずGitHub IssueとJiraストーリーの両方を作成
+- GitHub Issue作成後、`acli jira workitem create` でJiraストーリーを作成
+- プロジェクトキー: `SCRUM`
+- ストーリータイプ: `ストーリー`（日本語指定）
+- Jiraストーリーの説明欄にGitHub IssueのURLを必ず含める
+- GitHub IssueとJiraストーリーを相互リンクで管理
+- **Jiraストーリー作成コマンド例**:
+  ```bash
+  acli jira workitem create \
+    --project "SCRUM" \
+    --type "ストーリー" \
+    --summary "機能名" \
+    --description "説明\n\nGitHub Issue: https://github.com/owner/repo/issues/XX"
+  ```
+
 ### ドキュメント
 - 重要な機能追加時はREADME.mdを更新
 - 自明でない設定選択を文書化
