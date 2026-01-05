@@ -197,27 +197,27 @@ config.mouse_bindings = {
 config.hyperlink_rules = {
   -- HTTP/HTTPS URL
   {
-    regex = "\\b\\w+://[\\w.-]+\\.[a-z]{2,15}\\S*\\b",
+    regex = "\\b\\w+://[\\w\\.\\-]+\\.[a-z]{2,15}\\S*\\b",
     format = "$0",
   },
   
   -- 暗黙的なHTTPS（www.example.com）
   {
-    regex = [[\bwww\.[a-z0-9-]+\.[a-z]{2,15}\S*\b]],
+    regex = [[\bwww\.[a-z0-9\-]+\.[a-z]{2,15}\S*\b]],
     format = "https://$0",
   },
 
   -- GitHub リポジトリ（user/repo形式）
-  -- より厳密なパターン: 最低2文字のユーザー名/リポジトリ名で、スペースやパス区切りで囲まれている
+  -- スペース区切りまたは行頭/行末で囲まれたuser/repo形式
   {
-    regex = [[(?:^|\s)([a-z0-9][a-z0-9-]{1,38}\/[a-z0-9._-]{2,100})(?:\s|$)]],
-    format = "https://github.com/$1",
+    regex = [[\b[a-z0-9][a-z0-9\-]{1,38}/[a-z0-9._\-]{2,100}\b]],
+    format = "https://github.com/$0",
   },
 
   -- ファイルパス（絶対パス）
   -- /で始まり、有効なファイル名文字が続くパス
   {
-    regex = [[\b\/(?:[\w\-\.]+\/)*[\w\-\.]+\b]],
+    regex = [[\b/[\w\-\./]+\b]],
     format = "file://$0",
   },
 
