@@ -166,10 +166,10 @@ config.mouse_bindings = {
     end),
   },
 
-  -- Ctrl+クリックでハイパーリンクを開く
+  -- Cmd+クリックでハイパーリンクを開く
   {
     event = { Up = { streak = 1, button = "Left" } },
-    mods = "CTRL",
+    mods = "CMD",
     action = wezterm.action.OpenLinkAtMouseCursor,
   },
 
