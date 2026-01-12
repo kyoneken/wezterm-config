@@ -92,6 +92,9 @@ module.keys = {
     overrides.window_background_opacity = 0.90
     window:set_config_overrides(overrides)
   end) },
+
+  -- Quick Select（文字列ハイライト選択）
+  { key = " ", mods = "LEADER", action = act.QuickSelect },
 }
 
 ----------------------------------------------------
