@@ -55,6 +55,7 @@ cd wezterm-config
 mkdir -p ~/.config/wezterm
 ln -sf $(pwd)/wezterm.lua ~/.config/wezterm/wezterm.lua
 ln -sf $(pwd)/keybinds.lua ~/.config/wezterm/keybinds.lua
+ln -sf $(pwd)/highlights.lua ~/.config/wezterm/highlights.lua
 ```
 
 ### 3. フォントのインストール（推奨）
@@ -161,16 +162,39 @@ open -a WezTerm
 - `Ctrl+q` → `Space` : Quick Select（文字列ハイライト選択）
 - `Ctrl+q` → `Shift+r` : 設定リロード
 
-### Quick Select機能
-`Ctrl+q` → `Space` でQuick Selectモードを起動すると、画面上の以下のパターンが自動的にハイライトされます：
-- IPアドレス
-- UUIDやハッシュ値
-- エラーキーワード（ERROR、WARN、FATAL、CRITICAL）
-- ファイルパス
-- メールアドレス
-- 日付・時刻パターン
+### Quick Select機能（動的ハイライト）
 
-ハイライトされた項目はキーボードで選択し、Enterでクリップボードにコピーできます。
+**セッション内で動的にパターンを追加・管理**
+
+- `Ctrl+q` → `Shift+h` : パターンを対話的に追加（パターン→HEX色を入力）
+- `Ctrl+q` → `Ctrl+Shift+H` : Neovimで一括編集
+- `Ctrl+q` → `Ctrl+h` : パターンをリロード（編集後）
+- `Ctrl+q` → `Alt+h` : パターンをクリア
+- `Ctrl+q` → `Space` : Quick Selectモード起動（登録パターンをハイライト）
+
+**使い方の例：**
+1. ログでERRORを赤くハイライトしたい
+   - `Ctrl+q` → `Shift+h`
+   - パターン入力: `ERROR`
+   - HEX色入力: `#ff0000`
+   - `Ctrl+q` → `Space` でハイライト表示
+
+2. IPアドレスを緑でハイライト
+   - `Ctrl+q` → `Shift+h`
+   - パターン入力: `\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b`
+   - HEX色入力: `#00ff00`
+
+3. 複数パターンを一括編集（Neovim）
+   - `Ctrl+q` → `Ctrl+Shift+H`
+   - Neovimで編集（書式: `パターン HEX色`）
+   - 保存して終了
+   - `Ctrl+q` → `Ctrl+h` でリロード
+
+**特徴：**
+- ペインごとに独立したパターン管理
+- セッション終了でクリア（一時的な用途向け）
+- 正規表現対応
+- Neovimの設定が反映される
 
 ## 🛠️ 開発環境
 
@@ -180,6 +204,7 @@ open -a WezTerm
 wezterm-config/
 ├── wezterm.lua              # メイン設定ファイル
 ├── keybinds.lua            # キーバインド設定（モジュール）
+├── highlights.lua          # 動的ハイライト管理（モジュール）
 ├── .github/
 │   └── copilot-instructions.md  # 開発ガイドライン
 └── README.md               # このファイル

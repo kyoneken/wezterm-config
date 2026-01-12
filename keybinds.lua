@@ -95,6 +95,27 @@ module.keys = {
 
   -- Quick Select（文字列ハイライト選択）
   { key = " ", mods = "LEADER", action = act.QuickSelect },
+
+  -- 動的ハイライトパターン管理
+  { key = "h", mods = "LEADER|SHIFT", action = wezterm.action_callback(function(window, pane)
+    local highlights = require("highlights")
+    highlights.add_pattern_interactive()(window, pane)
+  end) },
+  
+  { key = "H", mods = "LEADER|SHIFT|CTRL", action = wezterm.action_callback(function(window, pane)
+    local highlights = require("highlights")
+    highlights.edit_patterns()(window, pane)
+  end) },
+  
+  { key = "h", mods = "LEADER|CTRL", action = wezterm.action_callback(function(window, pane)
+    local highlights = require("highlights")
+    highlights.reload_patterns()(window, pane)
+  end) },
+  
+  { key = "h", mods = "LEADER|ALT", action = wezterm.action_callback(function(window, pane)
+    local highlights = require("highlights")
+    highlights.clear_patterns()(window, pane)
+  end) },
 }
 
 ----------------------------------------------------
