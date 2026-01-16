@@ -60,9 +60,25 @@ ln -sf $(pwd)/highlights.lua ~/.config/wezterm/highlights.lua
 
 ### 3. フォントのインストール（推奨）
 
+**日本語プログラミングフォント（推奨）:**
+
+```bash
+brew tap homebrew/cask-fonts
+
+# HackGen Console（推奨：Hack + 源ノ角ゴシック）
+brew install --cask font-hackgen
+
+# または PlemolJP Console（IBM Plex Mono + IBM Plex Sans JP）
+brew install --cask font-plemoljp
+
+# または UDEV Gothic（BIZ UDゴシック + JetBrains Mono）
+brew install --cask font-udev-gothic
+```
+
+**英語フォント（フォールバック用）:**
+
 ```bash
 # JetBrains Monoフォント
-brew tap homebrew/cask-fonts
 brew install --cask font-jetbrains-mono
 
 # Nerd Fonts（タブアイコン用）
@@ -214,7 +230,7 @@ wezterm-config/
 
 - **設定言語**: Lua
 - **ターミナル**: WezTerm (Rust製)
-- **フォント**: JetBrains Mono 16pt
+- **フォント**: HackGen Console 16pt (日本語対応、フォールバック: JetBrains Mono)
 - **テーマ**: Tokyo Night
 - **バージョン管理**: Git + GitHub
 - **プロジェクト管理**: GitHub Issues + Jira (SCRUM)
@@ -227,6 +243,12 @@ wezterm-config/
 ```lua
 -- フォントサイズ変更
 config.font_size = 18.0
+
+-- フォント変更（日本語対応）
+config.font = wezterm.font_with_fallback({
+  { family = "PlemolJP Console", weight = "Regular" },
+  { family = "JetBrains Mono", weight = "Medium" },
+})
 
 -- 透明度変更
 config.window_background_opacity = 0.85
@@ -310,6 +332,10 @@ config.initial_rows = 50
 
 - [WezTerm公式ドキュメント](https://wezfurlong.org/wezterm/)
 - [Tokyo Nightテーマ](https://github.com/folke/tokyonight.nvim)
+- [日本語プログラミングフォント一覧](https://github.com/yuru7/programming-fonts-jp)
+- [HackGen](https://github.com/yuru7/HackGen)
+- [PlemolJP](https://github.com/yuru7/PlemolJP)
+- [UDEV Gothic](https://github.com/yuru7/udev-gothic)
 - [JetBrains Monoフォント](https://www.jetbrains.com/lp/mono/)
 - [Nerd Fonts](https://www.nerdfonts.com/)
 

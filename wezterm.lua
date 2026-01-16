@@ -11,8 +11,30 @@ local config = wezterm.config_builder()
 ----------------------------------------------------
 -- フォント設定
 ----------------------------------------------------
-config.font = wezterm.font("JetBrains Mono", { weight = "Medium" })
+-- 日本語に最適化されたプログラミングフォントの候補:
+-- 1. HackGen Console (Hack + 源ノ角ゴシック)
+-- 2. PlemolJP Console (IBM Plex Mono + IBM Plex Sans JP)
+-- 3. UDEV Gothic (BIZ UDゴシック + JetBrains Mono)
+-- 4. Monaspace Krypton (GitHub製、フォールバック設定が必要)
+
+-- フォールバックリストで日本語をサポート
+config.font = wezterm.font_with_fallback({
+  { family = "HackGen Console", weight = "Regular" },
+  { family = "JetBrains Mono", weight = "Medium" },
+  "Menlo",
+})
 config.font_size = 16.0
+
+-- 代替案（コメントアウト）
+-- config.font = wezterm.font_with_fallback({
+--   { family = "PlemolJP Console", weight = "Regular" },
+--   { family = "JetBrains Mono", weight = "Medium" },
+-- })
+
+-- config.font = wezterm.font_with_fallback({
+--   { family = "UDEV Gothic", weight = "Regular" },
+--   { family = "JetBrains Mono", weight = "Medium" },
+-- })
 
 ----------------------------------------------------
 -- カラースキーム
