@@ -13,24 +13,34 @@ local config = wezterm.config_builder()
 ----------------------------------------------------
 -- 日本語に最適化されたプログラミングフォントの候補:
 -- 1. HackGen Console (Hack + 源ノ角ゴシック)
--- 2. PlemolJP Console (IBM Plex Mono + IBM Plex Sans JP)
--- 3. UDEV Gothic (BIZ UDゴシック + JetBrains Mono)
--- 4. Monaspace Krypton (GitHub製、フォールバック設定が必要)
+-- 2. Noto Sans Mono CJK JP (Google製、完全な日本語サポート)
+-- 3. PlemolJP Console (IBM Plex Mono + IBM Plex Sans JP)
+-- 4. UDEV Gothic (BIZ UDゴシック + JetBrains Mono)
+-- 5. Monaspace Krypton (GitHub製、フォールバック設定が必要)
 
 -- フォールバックリストで日本語をサポート
 config.font = wezterm.font_with_fallback({
   { family = "HackGen Console", weight = "Regular" },
+  { family = "Noto Sans Mono CJK JP", weight = "Regular" },
   { family = "JetBrains Mono", weight = "Medium" },
   "Menlo",
 })
 config.font_size = 16.0
 
--- 代替案（コメントアウト）
+-- 代替案1: Noto Sans Mono CJK JPメイン（Google風、丸みのあるデザイン）
+-- config.font = wezterm.font_with_fallback({
+--   { family = "Noto Sans Mono CJK JP", weight = "Regular" },
+--   { family = "HackGen Console", weight = "Regular" },
+--   { family = "JetBrains Mono", weight = "Medium" },
+-- })
+
+-- 代替案2: PlemolJP Console
 -- config.font = wezterm.font_with_fallback({
 --   { family = "PlemolJP Console", weight = "Regular" },
 --   { family = "JetBrains Mono", weight = "Medium" },
 -- })
 
+-- 代替案3: UDEV Gothic
 -- config.font = wezterm.font_with_fallback({
 --   { family = "UDEV Gothic", weight = "Regular" },
 --   { family = "JetBrains Mono", weight = "Medium" },

@@ -68,6 +68,9 @@ brew tap homebrew/cask-fonts
 # HackGen Console（推奨：Hack + 源ノ角ゴシック）
 brew install --cask font-hackgen
 
+# Noto Sans Mono CJK JP（Google製、完全日本語対応）
+brew install --cask font-noto-sans-mono-cjk-jp
+
 # または PlemolJP Console（IBM Plex Mono + IBM Plex Sans JP）
 brew install --cask font-plemoljp
 
@@ -230,7 +233,7 @@ wezterm-config/
 
 - **設定言語**: Lua
 - **ターミナル**: WezTerm (Rust製)
-- **フォント**: HackGen Console 16pt (日本語対応、フォールバック: JetBrains Mono)
+- **フォント**: HackGen Console 16pt (日本語対応、フォールバック: Noto Sans Mono CJK JP, JetBrains Mono)
 - **テーマ**: Tokyo Night
 - **バージョン管理**: Git + GitHub
 - **プロジェクト管理**: GitHub Issues + Jira (SCRUM)
@@ -244,11 +247,18 @@ wezterm-config/
 -- フォントサイズ変更
 config.font_size = 18.0
 
--- フォント変更（日本語対応）
+-- フォント変更例1: Noto Sans Mono CJK JPメイン（Google風、丸み）
 config.font = wezterm.font_with_fallback({
-  { family = "PlemolJP Console", weight = "Regular" },
+  { family = "Noto Sans Mono CJK JP", weight = "Regular" },
+  { family = "HackGen Console", weight = "Regular" },
   { family = "JetBrains Mono", weight = "Medium" },
 })
+
+-- フォント変更例2: PlemolJP Console（IBM風）
+-- config.font = wezterm.font_with_fallback({
+--   { family = "PlemolJP Console", weight = "Regular" },
+--   { family = "JetBrains Mono", weight = "Medium" },
+-- })
 
 -- 透明度変更
 config.window_background_opacity = 0.85
@@ -334,6 +344,7 @@ config.initial_rows = 50
 - [Tokyo Nightテーマ](https://github.com/folke/tokyonight.nvim)
 - [日本語プログラミングフォント一覧](https://github.com/yuru7/programming-fonts-jp)
 - [HackGen](https://github.com/yuru7/HackGen)
+- [Noto Sans Mono CJK JP](https://github.com/notofonts/noto-cjk)
 - [PlemolJP](https://github.com/yuru7/PlemolJP)
 - [UDEV Gothic](https://github.com/yuru7/udev-gothic)
 - [JetBrains Monoフォント](https://www.jetbrains.com/lp/mono/)
